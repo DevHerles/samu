@@ -1,0 +1,16 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_oehealth_samu_carroceria","access_oehealth_samu_carroceria","model_oehealth_samu_carroceria",,1,0,0,0
+"access_oehealth_samu_condition","access_oehealth_samu_condition","model_oehealth_samu_condition",,1,0,0,0
+"access_oehealth_samu_combustible","access_oehealth_samu_combustible","model_oehealth_samu_combustible",,1,0,0,0
+"access_oehealth_samu_model","access_oehealth_samu_model","model_oehealth_samu_model",,1,0,0,0
+"access_oehealth_samu_mantainance","access_oehealth_samu_mantainance","model_oehealth_samu_mantainance",,1,0,0,0
+"access_oehealth_samu_brand","access_oehealth_samu_brand","model_oehealth_samu_brand",,1,0,0,0
+"access_oehealth_samu_combustible","access_oehealth_samu_combustible","model_oehealth_samu_combustible",,1,0,0,0
+"access_oehealth_samu_unidadesmoviles","access_oehealth_samu_unidadesmoviles","model_oehealth_samu_unidadesmoviles",,1,0,0,0
+"access_oehealth_samu_unidadesmoviles_line","access_oehealth_samu_unidadesmoviles_line","model_oehealth_samu_unidadesmoviles_line",,1,0,0,0
+"access_oehealth_samu_profile","access_oehealth_samu_profile","model_oehealth_samu_profile",,1,0,0,0
+"access_oehealth_samu_instruction","access_oehealth_samu_instruction","model_oehealth_samu_instruction",,1,0,0,0
+"access_oehealth_samu_llamada","access_oehealth_samu_llamada","model_oehealth_samu_llamada",,1,0,0,0
+"access_oehealth_samu_motivollamada","access_oehealth_samu_motivollamada","model_oehealth_samu_motivollamada",,1,0,0,0
+"access_oehealth_samu_calldetail","access_oehealth_samu_calldetail","model_oehealth_samu_calldetail",,1,0,0,0
+"access_oehealth_samu_motivoimpertinente","access_oehealth_samu_motivoimpertinente","model_oehealth_samu_motivoimpertinente",,1,0,0,0

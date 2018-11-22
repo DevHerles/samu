@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="wizard_patient_search_view" model="ir.ui.view">
+        <field name="name">Búsqueda de pacientes</field>
+        <field name="model">wizard.patient</field>
+        <field name="arch" type="xml">
+            <form string="Búsqueda de pacientes" class="oe_form_configuration">
+                <sheet>
+                    <separator string="Búsqueda de Pacientes"/>
+                    <notebook>
+                        <page string="Búsqueda por DNI">
+                            <group col="4">
+                                <field name="q" placeholder="Ingrese N° de documento" colspan="2" nolabel="1"/>
+                                <button name="search_patients" string="Buscar" type="object" class="oe_link"/>
+                            </group>
+                            <group>
+                                <field name="line_ids" nolabel="1">
+                                    <tree delete="0" editable="top" create="0" edit="0"
+                                          colors="red:sis_filiation=='NO TIENE SEGURO';red:sis_filiation==False;">
+                                        <field name="patient_id" invisible="1"/>
+                                        <field name="doc_type"/>
+                                        <field name="identification_id"/>
+                                        <field name="full_name"/>
+                                        <field name="age"/>
+                                        <field name="sex"/>
+                                        <field name="sis_filiation"/>
+                                        <field name="sis_state"/>
+                                        <button name="new_patient" string="Ficha de paciente" type="object"
+                                                icon="fa fa-file-text-o fa-lg"/>
+                                        <button name="update_history" string="Actualizar historial" type="object"
+                                                icon="fa fa-user fa-lg"/>
+                                        <button name="" string="Registrar emergencia"
+                                                type="action" icon="fa fa-calendar fa-lg"
+                                            context="{'default_patient_id': patient_id}"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="oeh_medical_patient_view_form" model="ir.ui.view">
+        <field name="name">Paciente</field>
+        <field name="model">oeh.medical.patient</field>
+        <field name="priority" eval="30"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="buttons">
+                    </div>
+                    <div class="oe_title">
+                        <div class="floating-box">
+                            <label string="N. Archivo de Afiliación/Caducidad"/>
+                            <h4>
+                                <field name="sis_filiation"/>
+                                <field name="sis_filiation_expiration_date"/>
+                            </h4>
+                            <button name="validate_sis" string="Validar SIS" type="object" class="pull-right"/>
+                        </div>
+                    </div>
+                    <field name="name" invisible="1"/>
+                    <group>
+                        <table class="table table-bordered" style="border:none;">
+                            <tbody>
+                                <tr>
+                                    <td rowspan="4" style="border:none; padding: 2px 4px;">
+                                        <field name="image" widget="image" class="oe_left oe_avatar" options="{'preview_image': 'image_medium'}"/>
+                                    </td>
+                                    <td style="border:none; padding: 2px 4px;">
+                                        <div class="oe_title">
+                                            <label string="Tipo de Documento"/>
+                                            <field name="doc_type" nolabel="1" required="1"/>
+                                        </div>
+                                    </td>
+                                    <td style="border:none; padding: 2px 4px;">
+                                        <div class="oe_title">
+                                            <label string="Nro. de Documento"/>
+                                            <field name="identification_id" attrs="{'required': [('doc_type', '!=', 'NOTIENE')]}" modifiers="{'required': [['doc_type', '!=', 'NOTIENE']]}"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="border:none; padding: 2px 4px;">
+                                        <div class="oe_title">
+                                            <label string="Apellido Paterno"/>
+                                            <field name="last_name" nolabel="1" required="1"/>
+                                        </div>
+                                    </td>
+                                    <td style="border:none; padding: 2px 4px;">
+                                        <div class="oe_title">
+                                            <label string="Apellido Materno"/>
+                                            <field name="last_name_2" nolabel="1" required="1"/>
+                                        </div>
+                                    </td>
+                                    <td style="border:none; padding: 2px 4px;">
+                                        <div class="oe_title">
+                                            <label string="Nombres"/>
+                                            <field name="first_name" nolabel="1" required="1"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </group>
+                    <group/>
+                    <notebook>
+                        <page string="Personal">
+                            <group>
+                                <group string="Teléfonos">
+                                    <field name="phone" string="Teléfono"/>
+                                </group>
+                                <group string="Celulares">
+                                </group>
+                                    <field name="mobile" string="Celular"/>
+                            </group>
+                            <group string="Datos de nacimiento">
+                                <group>
+                                    <field name="country_id" placeholder="País" options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="state_id" placeholder="Departamento" options="{'no_open': True}" domain="[('country_id', '=', country_id),('state_id', '=', False),('province_id', '=', False)]"/>
+                                    <field name="province_id" placeholder="Provincia" options="{'no_open': True}" domain="[('country_id', '=', country_id),('state_id', '=', state_id),('province_id', '=', False)]"/>
+                                </group>
+                            </group>
+                            <group string="Datos de Domicilio RENIEC">
+                                <group>
+                                    <field name="entity_country_id" placeholder="País" options="{'no_open': True, 'no_create': True}" invisible="1"/>
+                                    <field name="entity_department_id" placeholder="Departamento" options="{'no_open': True}" domain="[('country_id', '=', entity_country_id),('state_id', '=', False),('province_id', '=', False)]"/>
+                                    <field name="entity_province_id" placeholder="Provincia" options="{'no_open': True}" domain="[('country_id', '=', entity_country_id),('state_id', '=', entity_department_id),('province_id', '=', False)]"/>
+                                    <field name="entity_district_id" placeholder="Distrito" options="{'no_open': True}" domain="[('country_id', '=', entity_country_id),('state_id', '=', entity_department_id),('province_id', '=', entity_province_id)]"/>
+                                </group>
+                                <group>
+                                    <field name="entity_address"/>
+                                </group>
+                            </group>
+                            <group string="Datos de Domicilio Actual">
+                                <group>
+                                    <field name="a_country_id" placeholder="País" options="{'no_open': True, 'no_create': True}"/>
+                                    <field name="a_state_id" placeholder="Departamento" options="{'no_open': True}" domain="[('country_id', '=', a_country_id),('state_id', '=', False),('province_id', '=', False)]"/>
+                                    <field name="a_province_id" placeholder="Provincia" options="{'no_open': True}" domain="[('country_id', '=', a_country_id),('state_id', '=', a_state_id),('province_id', '=', False)]"/>
+                                    <field name="a_district_id" placeholder="Distrito" options="{'no_open': True}" domain="[('country_id', '=', a_country_id),('state_id', '=', a_state_id),('province_id', '=', a_province_id)]"/>
+                                </group>
+                                <group>
+                                    <field name="current_address_location"/>
+                                    <field name="current_address"/>
+                                    <field name="current_reference"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!--<record id="oeh_medical_patient_view_form_inherit_base_view_partner_form" model="ir.ui.view">-->
+        <!--<field name="name">oeh.medical.patient.form</field>-->
+        <!--<field name="model">oeh.medical.patient</field>-->
+        <!--<field name="inherit_id" ref="base.view_partner_form"/>-->
+        <!--<field name="arch" type="xml">-->
+            <!--<xpath expr="//field[@name='street']" position="before">-->
+                        <!--<field name="sis_filiation"/>-->
+                        <!--<field name="sis_filiation_expiration_date"/>-->
+                        <!--<field name="sis_state"/>-->
+            <!--</xpath>-->
+        <!--</field>-->
+    <!--</record>-->
+    <record id="wizard_patient_search_action" model="ir.actions.act_window">
+        <field name="name">Registrar emergencia</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">wizard.patient</field>
+        <field name="view_id" ref="wizard_patient_search_view"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+    <menuitem
+        id="wizard_patient_search_menu_action"
+        name="Registrar emegerncia"
+        parent="oehealth_samu_menu_root"
+        action="wizard_patient_search_action"
+        sequence="3"/>
+    <record id="oehealth_samu_paciente_action" model="ir.actions.act_window">
+        <field name="name">oehealth.samu.llamada</field>
+        <field name="res_model">oeh.medical.patient</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        id="oehealth_samu_paciente_menu_action"
+        name="Paciente"
+        parent="oehealth_samu_menu_root"
+        action="oehealth_samu_paciente_action"
+        sequence="4"/>
+</odoo>

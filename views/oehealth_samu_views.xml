@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="oehealth_samu_view_form_inherit_hr_view_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='identification_id']" position="replace"/>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="doc_type"/>
+                    <field name="identification_id"/>
+                </xpath>
+                <xpath expr="//field[@name='work_location']" position="after">
+                    <field name="job_id" string="Profesión"/>
+                    <field name="instruction_id"/>
+                    <field name="profile_id"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="oehealth_samu_view_search" model="ir.ui.view">
+            <field name="name">hr.employee.search</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <search string="Búsquedas">
+                    <field name="identification_id"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        <record id="oehealth_samu_view_form_inherit_base_view_users_form" model="ir.ui.view">
+            <field name="name">res.users.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="doc_type"/>
+                    <field name="identification_id"/>
+                    <!--<field name="state_id"/>-->
+                    <!--<field name="province_id"/>-->
+                    <!--<field name="district_id"/>-->
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="update_res_partner" string="Actualizar datos del empleado" type="object"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="oehealth_samu_view_form_inherit_base_view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="doc_type"/>
+                    <field name="identification_id"/>
+                    <field name="country_id" invisible="0"/>
+                    <!--<group name="container_row_2" invisible="0"/>-->
+                    <!--<notebook colspan="4" invisible="0">-->
+                        <!--<page name="internal_notes"/>-->
+                    <!--</notebook>-->
+                </xpath>
+                <!--<xpath expr="//notebook" position="replace"/>-->
+            </field>
+        </record>
+        <record id="oehealth_samu_unidadesmoviles_view_form" model="ir.ui.view">
+            <field name="name">oehealth.samu.unidadesmoviles.form</field>
+            <field name="model">oehealth.samu.unidadesmoviles</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Label">
+                    <notebook colspan="4">
+                        <page string="Detalle">
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="placa"/>
+                                    <field name="brand_id"/>
+                                    <field name="carroceria_id"/>
+                                    <field name="condition_id"/>
+                                    <field name="image" widget="image"/>
+                                </group>
+                                <group>
+                                    <field name="has_gps"/>
+                                    <field name="kilometraje"/>
+                                    <field name="combustible_id"/>
+                                    <field name="codigo_patrimonial"/>
+                                    <field name="modelo_id"/>
+                                    <field name="mantainance_id"/>
+                                    <field name="line_ids">
+                                        <tree editable="bottom">
+                                            <field name="image" widget="image"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <record id="oehealth_samu_llamada_view_form" model="ir.ui.view">
+            <field name="name">oehealth.samu.llamada.form</field>
+            <field name="model">oehealth.samu.llamada</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Label">
+                    <notebook>
+                        <page string="Informante">
+                            <group>
+                                <field name="doc_type"/>
+                                <field name="identification_id"/>
+                                <field name="patient_id"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <notebook>
+                        <page string="Emergencia">
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="emergency_type"/>
+                                    <field name="motivollamada_id"/>
+                                    <field name="calldetail_id"/>
+                                    <field name="motivoimpertinente_id"/>
+                                </group>
+                                <group>
+                                    <field name="state_id"/>
+                                    <field name="province_id"/>
+                                    <field name="district_id"/>
+                                    <field name="observation"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+        <menuitem
+            id="oehealth_samu_menu_root"
+            name="SAMU"
+            sequence="10"/>
+
+        <record id="oehealth_samu_unidadesmoviles_action" model="ir.actions.act_window">
+            <field name="name">oehealth.samu.unidadesmoviles</field>
+            <field name="res_model">oehealth.samu.unidadesmoviles</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="oehealth_samu_unidadesmoviles_menu_action"
+            name="Unidades móviles"
+            parent="oehealth_samu_menu_root"
+            action="oehealth_samu_unidadesmoviles_action"
+            sequence="1"/>
+
+        <record id="oehealth_samu_llamada_action" model="ir.actions.act_window">
+            <field name="name">oehealth.samu.llamada</field>
+            <field name="res_model">oehealth.samu.llamada</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+            id="oehealth_samu_llamada_menu_action"
+            name="Atención de llamada"
+            parent="oehealth_samu_menu_root"
+            action="oehealth_samu_llamada_action"
+            sequence="2"/>
+
+    </data>
+</odoo>
+
