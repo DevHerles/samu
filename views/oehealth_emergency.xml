@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="oeh_medical_samu_emergency_view_form_inherit_medical_emergency" model="ir.ui.view">
+            <field name="name">Emergencia</field>
+            <field name="model">oeh.medical.samu.emergency</field>
+            <field name="inherit_id" ref="oehealth_emergency.oeh_medical_emergency_admission_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='emergency_date']" position="after">
+                    <field name="driver_id"/>
+                    <field name="physician_id"/>
+                    <field name="nurse_id"/>
+                    <field name="unitytype_id"/>
+                    <field name="elapsed_time"/>
+                </xpath>
+                <xpath expr="//field[@name='triage_id']" position="after">
+                    <field name="observations"/>
+                    <field name="line_ids" widget="one2many_list">
+                        <tree editable="bottom">
+                            <field name="mobileunit_id"/>
+                            <button name="goto_mobileunity" string="Ver unidad" type="object"/>
+                        </tree>
+                    </field>
+                </xpath>
+                <xpath expr="//field[@name='patient_origin']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="oeh_medical_samu_emergency_view_action" model="ir.actions.act_window">
+            <field name="name">Registrar emergencia</field>
+            <field name="res_model">oeh.medical.samu.emergency</field>
+            <field name="view_id" ref="oeh_medical_samu_emergency_view_form_inherit_medical_emergency"/>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>
+

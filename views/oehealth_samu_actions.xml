@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="oehealth_samu_emergency_wizard_action" model="ir.actions.act_window">
+            <field name="name">oehealth.samu.mobileunit</field>
+            <field name="res_model">wizard.samu.emergency</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_samu_emergency_wizard_action" model="ir.actions.act_window">
+            <field name="name">Registrar emergencia</field>
+            <field name="res_model">wizard.samu.emergency</field>
+            <field name="view_id" ref="oeh_medical_samu_emergency_wizard_view_form_inherit_wizard_appointment"/>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+
+        <record id="oehealth_samu_emergency_action" model="ir.actions.act_window">
+            <field name="name">Emergencias</field>
+            <field name="res_model">oeh.medical.samu.emergency</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_samu_mobileunit_action" model="ir.actions.act_window">
+            <field name="name">oehealth.samu.mobileunit</field>
+            <field name="res_model">oehealth.samu.mobileunit</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_samu_llamada_action" model="ir.actions.act_window">
+            <field name="name">oehealth.samu.llamada</field>
+            <field name="res_model">oehealth.samu.llamada</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_samu_mobileunit_brand_action" model="ir.actions.act_window">
+            <field name="name">Marcas de vehículos</field>
+            <field name="res_model">oehealth.samu.brand</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_patient_action" model="ir.actions.act_window">
+            <field name="name">Pacientes</field>
+            <field name="res_model">oeh.medical.patient</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_employee_action" model="ir.actions.act_window">
+            <field name="name">Empleados</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_physician_action" model="ir.actions.act_window">
+            <field name="name">Médicos</field>
+            <field name="res_model">oeh.medical.physician</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_samu_mobileunit_bodywork_action" model="ir.actions.act_window">
+            <field name="name">Carrocerías de vehículos</field>
+            <field name="res_model">oehealth.samu.bodywork</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_samu_mobileunit_condition_action" model="ir.actions.act_window">
+            <field name="name">Condiciones de vehículos</field>
+            <field name="res_model">oehealth.samu.condition</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_samu_mobileunit_fuel_action" model="ir.actions.act_window">
+            <field name="name">Combustibles</field>
+            <field name="res_model">oehealth.samu.fuel</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_samu_mobileunit_model_action" model="ir.actions.act_window">
+            <field name="name">Modelos de vehículos</field>
+            <field name="res_model">oehealth.samu.model</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_samu_mobileunit_maintenance_action" model="ir.actions.act_window">
+            <field name="name">Mantenimiento (Km)</field>
+            <field name="res_model">oehealth.samu.maintenance</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

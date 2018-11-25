@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="oeh_medical_samu_emergency_wizard_view_form_inherit_wizard_appointment" model="ir.ui.view">
+            <field name="name">emergency.wizard.form</field>
+            <field name="model">wizard.samu.emergency</field>
+            <field name="inherit_id" ref="oehealth_appointment.wizard_appointment_search_patient_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='search_patients']" position="after">
+                    <button name="search_patients" string="Indocumentado" type="object"/>
+                </xpath>
+                <xpath expr="//button[@name='update_history']" position="after">
+                    <button name="request_emergency" string="Solicitar emergencia" type="object"
+                    icon="fa fa-ambulance fa-lg" attrs="{'invisible': [('patient_id','=',False)]}"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="oeh_medical_samu_emergency_wizard_view_form_inherit_medical_patient" model="ir.ui.view">
+            <field name="name">Paciente</field>
+            <field name="model">oeh.medical.patient</field>
+            <field name="inherit_id" ref="oehealth.oeh_medical_patient_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/div/button[2]" position="before">
+                    <button name="request_samu_emergency" class="oe_stat_button" string="SAMU Emergencias" type="object" icon="fa-ambulance fa-lg"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="oeh_medical_samu_emergency_wizard_view_action" model="ir.actions.act_window">
+            <field name="name">Registrar emergencia</field>
+            <field name="res_model">wizard.samu.emergency</field>
+            <field name="view_id" ref="oeh_medical_samu_emergency_wizard_view_form_inherit_wizard_appointment"/>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+        </record>
+    </data>
+</odoo>
+

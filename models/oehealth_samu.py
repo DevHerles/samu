@@ -12,10 +12,10 @@ DOC_TYPE_SELECTION = [
 ]
 
 
-class OehealthSamuCarroceria(models.Model):
+class OehealthSamuBodywork(models.Model):
     """docstring for OehealthSamuCarroceria"""
 
-    _name = 'oehealth.samu.carroceria'
+    _name = 'oehealth.samu.bodywork'
     _description = 'OehealthSamuCarroceria description'
 
     code = fields.Char(u'Código')
@@ -32,10 +32,10 @@ class OehealthSamuCondition(models.Model):
     name = fields.Char('Nombre')
 
 
-class OehealthSamuCombustible(models.Model):
+class OehealthSamuFuel(models.Model):
     """docstring for OehealthSamuCombustible"""
 
-    _name = 'oehealth.samu.combustible'
+    _name = 'oehealth.samu.fuel'
     _description = 'OehealthSamuCombustible description'
 
     code = fields.Char(u'Código')
@@ -52,11 +52,11 @@ class OehealthSamuModel(models.Model):
     name = fields.Char('Nombre')
 
 
-class OehealthSamuMantainance(models.Model):
+class OehealthSamuMaintenance(models.Model):
     """docstring for OehealthSamuMantainance"""
 
-    _name = 'oehealth.samu.mantainance'
     _description = 'OehealthSamuMantainance description'
+    _name = 'oehealth.samu.maintenance'
 
     code = fields.Char(u'Código')
     name = fields.Char('Nombre')
@@ -72,43 +72,60 @@ class OehealthSamuBrand(models.Model):
     name = fields.Char('Nombre')
 
 
-class OehealthSamuCombustible(models.Model):
+class OehealthSamuFuel(models.Model):
     """docstring for OehealthSamuCombustible"""
 
-    _name = 'oehealth.samu.combustible'
+    _name = 'oehealth.samu.fuel'
     _description = 'OehealthSamuCombustible description'
 
     code = fields.Char(u'Código')
     name = fields.Char('Nombre')
 
+
+class OehealthSamuUnitytype(models.Model):
+    """docstring for OehealthSamuCombustible"""
+
+    _name = 'oehealth.samu.unitytype'
+    _description = 'OehealthSamuCombustible description'
+
+    code = fields.Char(u'Código')
+    name = fields.Char('Nombre')
+
+
 class UnidadesMoviles(models.Model):
     """docstring for UnidadesMoviles"""
 
-    _name = 'oehealth.samu.unidadesmoviles'
+    _name = 'oehealth.samu.mobileunit'
     _description = 'UnidadesMoviles description'
 
     name = fields.Char(string='Unidad movil')
-    carroceria_id = fields.Many2one('oehealth.samu.carroceria', u'Carrocería')
+    carroceria_id = fields.Many2one('oehealth.samu.bodywork', u'Carrocería')
     condition_id = fields.Many2one('oehealth.samu.condition', u'Condición')
     has_gps = fields.Boolean(string='¿Tiene GPS?')
     kilometraje = fields.Integer(string='Kilometraje')
-    combustible_id = fields.Many2one('oehealth.samu.combustible', 'Combustible')
+    combustible_id = fields.Many2one('oehealth.samu.fuel', 'Combustible')
     codigo_patrimonial = fields.Char(u'Código patrimonial')
     modelo_id = fields.Many2one('oehealth.samu.model', 'Modelo')
-    mantainance_id = fields.Many2one('oehealth.samu.mantainance', 'Mantenimiento cada')
+    mantainance_id = fields.Many2one('oehealth.samu.maintenance', 'Mantenimiento cada')
     placa = fields.Char(string='Placa', help='Placa de unidad movil')
-    brand_id = fields.Many2one(comodel_name='oehealth.samu.brand', string='Marca de la unidad movil')
+    brand_id = fields.Many2one('oehealth.samu.brand', 'Marca de la unidad movil')
     image = fields.Binary('Foto')
-    line_ids = fields.One2many(comodel_name='oehealth.samu.unidadesmoviles.line', inverse_name='line_id', string=u'Imágenes')
+    line_ids = fields.One2many('oehealth.samu.mobileunit.line', 'line_id', u'Imágenes')
+    # mobileunit_id = fields.Many2one('oeh.medical.samu.emergency')
+    state_id = fields.Many2one('res.country.state', u'Región')
+    province_id = fields.Many2one('res.country.state', 'Provincia')
+    district_id = fields.Many2one('res.country.state', 'Distrito')
+    unitytype_id = fields.Many2one('oehealth.samu.unitytype', 'Tipo')
+
 
 class UnidadesMovilesLinea(models.Model):
     """docstring for UnidadesMovilesLinea"""
 
-    _name = 'oehealth.samu.unidadesmoviles.line'
+    _name = 'oehealth.samu.mobileunit.line'
     _description = 'UnidadesMovilesLinea description'
 
     name = fields.Char('Nombre')
-    line_id = fields.Many2one(comodel_name='oehealth.samu.unidadesmoviles', string='Imágenes', help='Help note')
+    line_id = fields.Many2one(comodel_name='oehealth.samu.mobileunit', string='Imágenes', help='Help note')
     image = fields.Binary('Foto')
 
 

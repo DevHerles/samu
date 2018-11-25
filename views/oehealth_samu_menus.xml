@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem
+            id="oehealth_samu_menu_root"
+            name="SAMU"
+            sequence="10"/>
+
+        <menuitem
+            id="oehealth_samu_emergency_menu_root_action"
+            name="Emergencias"
+            parent="oehealth_samu_menu_root"
+            sequence="10"/>
+
+        <menuitem
+            id="oehealth_samu_emergency_wizard_menu_action"
+            name="Búsqueda de paciente"
+            parent="oehealth_samu_emergency_menu_root_action"
+            action="oehealth_samu_emergency_wizard_action"
+            sequence="10"/>
+
+        <menuitem
+            id="oehealth_samu_emergency_menu_action"
+            name="Emergencias"
+            parent="oehealth_samu_emergency_menu_root_action"
+            action="oeh_medical_samu_emergency_view_action"
+            sequence="20"/>
+
+        <menuitem
+            id="oehealth_patient_menu_action"
+            name="Pacientes"
+            parent="oehealth_samu_menu_root"
+            action="oehealth_patient_action"
+            sequence="21"/>
+
+        <menuitem
+            id="oehealth_employee_menu_action"
+            name="Empledados"
+            parent="oehealth_samu_menu_root"
+            action="oehealth_employee_action"
+            sequence="22"/>
+
+        <menuitem
+            id="oehealth_physician_menu_action"
+            name="Médicos"
+            parent="oehealth_samu_menu_root"
+            action="oehealth_physician_action"
+            sequence="23"/>
+
+        <menuitem
+            id="oehealth_samu_mobileunit_menu_action"
+            name="Unidades móviles"
+            parent="oehealth_samu_menu_root"
+            action="oehealth_samu_mobileunit_action"
+            sequence="20"/>
+
+        <menuitem
+            id="oehealth_samu_llamada_menu_action"
+            name="Atención de llamada"
+            parent="oehealth_samu_menu_root"
+            action="oehealth_samu_llamada_action"
+            sequence="30"/>
+
+        <menuitem
+            id="oehealth_samu_configuration_menu_action"
+            name="Configuraciones"
+            parent="oehealth_samu_menu_root"
+            sequence="40"/>
+
+        <menuitem
+            id="oehealth_samu_mobileunit_config_menu_action"
+            name="Unidades móviles"
+            parent="oehealth_samu_configuration_menu_action"
+            sequence="1"/>
+
+        <menuitem
+            id="oehealth_samu_mobileunit_brand_menu_action"
+            name="Marcas de vehículos"
+            parent="oehealth_samu_mobileunit_config_menu_action"
+            action="oehealth_samu_mobileunit_brand_action"
+            sequence="1"/>
+
+        <menuitem
+            id="oehealth_samu_mobileunit_bodywork_menu_action"
+            name="Carrocerías de vehículos"
+            action="oehealth_samu_mobileunit_bodywork_action"
+            parent="oehealth_samu_mobileunit_config_menu_action"
+            sequence="2"/>
+
+        <menuitem
+            id="oehealth_samu_mobileunit_condition_menu_action"
+            name="Condición de vehículos"
+            action="oehealth_samu_mobileunit_condition_action"
+            parent="oehealth_samu_mobileunit_config_menu_action"
+            sequence="3"/>
+
+        <menuitem
+            id="oehealth_samu_mobileunit_fuel_menu_action"
+            name="Combustibles"
+            action="oehealth_samu_mobileunit_fuel_action"
+            parent="oehealth_samu_mobileunit_config_menu_action"
+            sequence="3"/>
+
+        <menuitem
+            id="oehealth_samu_mobileunit_model_menu_action"
+            name="Modelo de vehículos"
+            action="oehealth_samu_mobileunit_model_action"
+            parent="oehealth_samu_mobileunit_config_menu_action"
+            sequence="3"/>
+
+        <menuitem
+            id="oehealth_samu_mobileunit_maintenance_menu_action"
+            name="Mantenimiento según kilometraje"
+            action="oehealth_samu_mobileunit_maintenance_action"
+            parent="oehealth_samu_mobileunit_config_menu_action"
+            sequence="3"/>
+
+    </data>
+</odoo>
