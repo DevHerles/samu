@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
+        <record id="oeh_medical_samu_emergency_view_tree" model="ir.ui.view">
+            <field name="name">Emergencias</field>
+            <field name="model">oeh.medical.samu.emergency</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="driver_id"/>
+                </tree>
+            </field>
+        </record>
         <record id="oeh_medical_samu_emergency_view_form_inherit_medical_emergency" model="ir.ui.view">
             <field name="name">Emergencia</field>
             <field name="model">oeh.medical.samu.emergency</field>
