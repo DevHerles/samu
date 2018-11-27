@@ -55,11 +55,31 @@
             sequence="20"/>
 
         <menuitem
-            id="oehealth_samu_llamada_menu_action"
-            name="Atención de llamada"
+            id="oehealth_samu_llamada_menu_root"
+            name="Llamadas"
             parent="oehealth_samu_menu_root"
+            sequence="1"/>
+
+        <menuitem
+            id="oehealth_samu_llamada_menu_root_action"
+            name="Regitro de llamadas"
+            parent="oehealth_samu_llamada_menu_root"
             action="oehealth_samu_llamada_action"
-            sequence="30"/>
+            sequence="10"/>
+
+        <menuitem
+            id="oehealth_samu_llamada_pertinent_menu_root_action"
+            name="Regulación"
+            parent="oehealth_samu_llamada_menu_root"
+            action="oehealth_samu_llamada_pertinent_action"
+            sequence="20"/>
+
+        <menuitem
+            id="oehealth_samu_llamada_inpertinent_menu_root_action"
+            name="Llamadas impertinentes"
+            parent="oehealth_samu_llamada_menu_root"
+            action="oehealth_samu_llamada_inpertinent_action"
+            sequence="20"/>
 
         <menuitem
             id="oehealth_samu_configuration_menu_action"

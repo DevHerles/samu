@@ -1,23 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <!--<record id="oehealth_samu_view_form_inherit_hr_view_employee_form" model="ir.ui.view">-->
-            <!--<field name="name">hr.employee.form</field>-->
-            <!--<field name="model">hr.employee</field>-->
-            <!--<field name="inherit_id" ref="hr.view_employee_form"/>-->
-            <!--<field name="arch" type="xml">-->
-                <!--<xpath expr="//field[@name='identification_id']" position="replace"/>-->
-                <!--<xpath expr="//field[@name='name']" position="before">-->
-                    <!--<field name="doc_type"/>-->
-                    <!--<field name="identification_id"/>-->
-                <!--</xpath>-->
-                <!--<xpath expr="//field[@name='work_location']" position="after">-->
-                    <!--<field name="job_id" string="Profesión"/>-->
-                    <!--<field name="instruction_id"/>-->
-                    <!--<field name="profile_id"/>-->
-                <!--</xpath>-->
-            <!--</field>-->
-        <!--</record>-->
         <record id="oehealth_samu_view_search" model="ir.ui.view">
             <field name="name">hr.employee.search</field>
             <field name="model">hr.employee</field>
@@ -28,125 +11,188 @@
                 </search>
             </field>
         </record>
-        <record id="oehealth_samu_view_form_inherit_base_view_users_form" model="ir.ui.view">
-            <field name="name">res.users.form</field>
-            <field name="model">res.users</field>
-            <field name="inherit_id" ref="base.view_users_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="before">
-                    <field name="doc_type"/>
-                    <field name="identification_id"/>
-                    <!--<field name="state_id"/>-->
-                    <!--<field name="province_id"/>-->
-                    <!--<field name="district_id"/>-->
-                </xpath>
-                <xpath expr="//header" position="inside">
-                    <button name="update_res_partner" string="Actualizar datos del empleado" type="object"/>
-                </xpath>
-            </field>
-        </record>
-        <record id="oehealth_samu_view_form_inherit_base_view_partner_form" model="ir.ui.view">
-            <field name="name">res.partner.form</field>
-            <field name="model">res.partner</field>
-            <field name="inherit_id" ref="base.view_partner_form"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='name']" position="before">
-                    <field name="doc_type"/>
-                    <field name="identification_id"/>
-                    <field name="country_id" invisible="0"/>
-                    <!--<group name="container_row_2" invisible="0"/>-->
-                    <!--<notebook colspan="4" invisible="0">-->
-                        <!--<page name="internal_notes"/>-->
-                    <!--</notebook>-->
-                </xpath>
-                <!--<xpath expr="//notebook" position="replace"/>-->
-            </field>
-        </record>
         <record id="oehealth_samu_unidadesmoviles_view_form" model="ir.ui.view">
-            <field name="name">oehealth.samu.unidadesmoviles.form</field>
+            <field name="name">Unidas móviles</field>
             <field name="model">oehealth.samu.mobileunit</field>
             <field name="type">form</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <form string="Label">
-                    <notebook colspan="4">
-                        <page string="Detalle">
-                            <group>
+                    <sheet>
+                        <notebook>
+                            <page string="Detalle">
                                 <group>
-                                    <field name="name"/>
-                                    <field name="unitytype_id"/>
-                                    <field name="placa"/>
-                                    <field name="brand_id"/>
-                                    <field name="carroceria_id"/>
-                                    <field name="condition_id"/>
-                                    <field name="image" widget="image"/>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="unitytype_id"/>
+                                        <field name="placa"/>
+                                        <field name="brand_id"/>
+                                        <field name="carroceria_id"/>
+                                        <field name="condition_id"/>
+                                        <field name="image" widget="image"/>
+                                    </group>
+                                    <group>
+                                        <field name="has_gps"/>
+                                        <field name="kilometraje"/>
+                                        <field name="combustible_id"/>
+                                        <field name="codigo_patrimonial"/>
+                                        <field name="modelo_id"/>
+                                        <field name="mantainance_id"/>
+                                        <field name="line_ids">
+                                            <tree editable="bottom">
+                                                <field name="image" widget="image"/>
+                                            </tree>
+                                        </field>
+                                    </group>
                                 </group>
-                                <group>
-                                    <field name="has_gps"/>
-                                    <field name="kilometraje"/>
-                                    <field name="combustible_id"/>
-                                    <field name="codigo_patrimonial"/>
-                                    <field name="modelo_id"/>
-                                    <field name="mantainance_id"/>
-                                    <field name="line_ids">
-                                        <tree editable="bottom">
-                                            <field name="image" widget="image"/>
-                                        </tree>
-                                    </field>
-                                </group>
-                            </group>
 
-                            <group>
                                 <group>
-                                    <field name="state_id"/>
-                                    <field name="province_id"/>
-                                    <field name="district_id"/>
+                                    <group>
+                                        <field name="state_id"/>
+                                        <field name="province_id"/>
+                                        <field name="district_id"/>
+                                    </group>
                                 </group>
-                            </group>
-                        </page>
-                    </notebook>
+                            </page>
+                            <page string="Condiciones de unidad">
+                                <group>
+                                    <group>
+                                        <field name="current_mileage"/>
+                                        <field name="previous_mileage"/>
+                                        <field name="last_mileage_traveled"/>
+                                        <field name="current_fuel"/>
+                                    </group>
+                                    <group>
+                                        <field name="soat_expiration_date"/>
+                                        <field name="next_technical_review"/>
+                                        <field name="approximate_maintenance_date"/>
+                                        <field name="mechanical_company_id"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group>
+                                        <field name="radiator_water"/>
+                                        <field name="battery_water"/>
+                                        <field name="wiper_water"/>
+                                        <field name="siren"/>
+                                        <field name="high_light"/>
+                                        <field name="low_light"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
                 </form>
             </field>
         </record>
+        <record id="oehealth_samu_llamada_view_tree" model="ir.ui.view">
+            <field name="name">oehealth.samu.llamada.tree</field>
+            <field name="model">oehealth.samu.llamada</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Label">
+                    <field name="doc_date"/>
+                    <field name="state_id"/>
+                    <field name="province_id"/>
+                    <field name="district_id"/>
+                    <field name="state"/>
+                    <field name="motivollamada_id"/>
+                    <field name="calldetail_id"/>
+                </tree>
+            </field>
+        </record>
         <record id="oehealth_samu_llamada_view_form" model="ir.ui.view">
-            <field name="name">oehealth.samu.llamada.form</field>
+            <field name="name">Llamadas</field>
             <field name="model">oehealth.samu.llamada</field>
             <field name="type">form</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <form string="Label">
-                    <notebook>
-                        <page string="Informante">
-                            <group>
-                                <field name="doc_type"/>
-                                <field name="identification_id"/>
-                                <field name="patient_id"/>
-                            </group>
-                        </page>
-                    </notebook>
-                    <notebook>
-                        <page string="Emergencia">
-                            <group>
+                    <header>
+                        <button name="set_to_regulation" states="llamada" string="Derivar a regulación" type="object"
+                                attrs="{'invisible': [('state','!=','llamada')]}"/>
+                                <!--class="oe_highlight" groups="oehealth.group_oeh_medical_physician,oehealth.group_oeh_medical_manager"/>-->
+                        <button name="set_to_on_road" states="regulacion" string="Asignar unidad" type="object"
+                                attrs="{'invisible': [('state','!=','regulacion')]}"/>
+                        <button name="set_to_attending" states="camino" string="Atender" type="object"
+                                attrs="{'invisible': [('state','!=','camino')]}"/>
+                        <button name="set_to_attended" states="atencion" string="Finalizar atención" type="object"
+                                attrs="{'invisible': [('state','!=','atencion')]}"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <table class="table table-condensed" style="border:none;">
+                           <tbody>
+                               <tr>
+                                    <div class="oe_left" style="width: 500px;">
+                                        <div class="oe_title">
+                                           <label string="Código de emergencia:" class="oe_edit_only"/>
+                                            <h1>
+                                                <field name="name" class="oe_inline" required="1"/>
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <notebook colspan="4">
+                            <page string="Emergencia">
                                 <group>
                                     <field name="name"/>
-                                    <field name="emergency_type"/>
-                                    <field name="motivollamada_id"/>
-                                    <field name="calldetail_id"/>
-                                    <field name="motivoimpertinente_id"/>
+                                    <group>
+                                        <field name="emergency_type"/>
+                                        <field name="motivollamada_id"/>
+                                        <field name="calldetail_id"/>
+                                        <field name="motivoimpertinente_id" attrs="{'invisible': [('emergency_type','=','1')]}"/>
+                                        <field name="emergency_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="country_id" placeholder="País" style="width: 49%"
+                                            options="{'no_open': True, 'no_create': True}" />&#x2063;
+                                        <field name="state_id" style="width: 49%" placeholder="Región"
+                                            options="{'no_open': True}" domain="[('country_id', '=', country_id),('state_id', '=', False),('province_id', '=', False)]"/>
+                                        <field name="province_id" style="width: 49%" placeholder="Provincia" options="{'no_open': True}" domain="[('country_id', '=', country_id),('state_id', '=', state_id),('province_id', '=', False)]"/>&#x2063;
+                                        <field name="district_id" style="width: 49%" placeholder="Distrito"
+                                            options="{'no_open': True}" domain="[('country_id', '=', country_id),('state_id', '=', state_id),('province_id', '=', province_id)]"/>
+                                        <field name="observation"/>
+                                        <field name="doc_date"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                        <notebook>
+                            <page string="Informante">
+                                <group>
+                                    <group>
+                                        <group>
+                                            <field name="informant_doc_type"/>
+                                        </group>
+                                        <group>
+                                            <field name="informant_identification_id"/>
+                                        </group>
+                                        <group>
+                                            <field name="informant_phone_number"/>
+                                        </group>
+                                        <field name="informant_full_name"/>
+                                    </group>
+                                    <group>
+                                        <field name="informant_country_id" placeholder="País" style="width: 49%" options="{'no_open': True, 'no_create': True}" />&#x2063;
+                                        <field name="informant_state_id" style="width: 49%" placeholder="Región" options="{'no_open': True}" domain="[('country_id', '=', informant_country_id),('state_id', '=', False),('province_id', '=', False)]"/>
+                                        <field name="informant_province_id" style="width: 49%" placeholder="Provincia" options="{'no_open': True}" domain="[('country_id', '=', informant_country_id),('state_id', '=', informant_state_id),('province_id', '=', False)]"/>&#x2063;
+                                        <field name="informant_district_id" style="width: 49%" placeholder="Distrito" options="{'no_open': True}" domain="[('country_id', '=', informant_country_id),('state_id', '=', informant_state_id),('province_id', '=', informant_province_id)]"/>
+                                        <field name="informant_gps"/>
+                                    </group>
                                 </group>
                                 <group>
-                                    <field name="state_id"/>
-                                    <field name="province_id"/>
-                                    <field name="district_id"/>
-                                    <field name="observation"/>
+                                    <field name="informant_address"/>
+                                    <field name="informant_address_reference"/>
                                 </group>
-                            </group>
-                        </page>
-                    </notebook>
+                            </page>
+                        </notebook>
+                    </sheet>
                 </form>
             </field>
         </record>
-
     </data>
 </odoo>
-

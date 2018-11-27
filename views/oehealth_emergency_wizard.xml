@@ -13,6 +13,11 @@
                     <button name="request_emergency" string="Solicitar emergencia" type="object"
                     icon="fa fa-ambulance fa-lg" attrs="{'invisible': [('patient_id','=',False)]}"/>
                 </xpath>
+                <xpath expr="//page[2]" position="replace"/>
+                <xpath expr="//field[@name='q']" position="attributes">
+                    <attribute name="placeholder">Ingrese número de documento</attribute>
+                    ...
+                </xpath>
             </field>
         </record>
         <record id="oeh_medical_samu_emergency_wizard_view_form_inherit_medical_patient" model="ir.ui.view">

@@ -1,16 +1,27 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
-DOC_TYPE_SELECTION_DNI = '01'
-DOC_TYPE_SELECTION_PASSPORT = '02'
-
-DOC_TYPE_SELECTION = [
-    (DOC_TYPE_SELECTION_DNI, 'DNI'),
-    (DOC_TYPE_SELECTION_PASSPORT, 'PASAPORTE'),
-]
-
+SELECTION_YES = 1
+SELECTION_NO = 0
+SELECTION_YES_NO = [
+    (SELECTION_YES, 'Si'),
+    (SELECTION_NO, 'No')
+    ]
+SELECTION_SEX_MALE = '01'
+SELECTION_SEX_FEMALE = '02'
+SELECTION_SEX = [
+    (SELECTION_SEX_MALE, 'Masculino'),
+    (SELECTION_SEX_FEMALE, 'Femenino'),
+    ]
+SELECTION_DOC_TYPE_DOI = '01'
+SELECTION_DOC_TYPE_PASSPORT = '02'
+SELECTION_DOC_TYPE = [
+    (SELECTION_DOC_TYPE_DOI, 'DNI'),
+    (SELECTION_DOC_TYPE_PASSPORT, 'PASAPORTE'),
+    ]
 
 class OehealthSamuBodywork(models.Model):
     """docstring for OehealthSamuCarroceria"""
@@ -117,6 +128,22 @@ class UnidadesMoviles(models.Model):
     district_id = fields.Many2one('res.country.state', 'Distrito')
     unitytype_id = fields.Many2one('oehealth.samu.unitytype', 'Tipo')
 
+    current_mileage = fields.Integer('Kilometraje actual')
+    previous_mileage = fields.Integer('Kilometraje anterior')
+    last_mileage_traveled = fields.Integer(u'Último kilometraje recorrido')
+    current_fuel = fields.Float('Combustible actual')
+    consumed_fuel = fields.Float('Combustible consumido')
+    soat_expiration_date = fields.Date('Fecha de caducida de SOAT')
+    next_technical_review = fields.Date(u'Próxima fecha de revisión técnica')
+    approximate_maintenance_date = fields.Date('Fecha aproximada de mantenimiento')
+    mechanical_company_id = fields.Many2one('oehealth.samu.mechanicalcompany', u'Empresa mecánica')
+
+    radiator_water = fields.Selection(SELECTION_YES_NO, 'Agua de radiador')
+    battery_water = fields.Selection(SELECTION_YES_NO, u'Agua de batería')
+    wiper_water = fields.Selection(SELECTION_YES_NO, 'Agua de limpiaparabrisas')
+    siren = fields.Selection(SELECTION_YES_NO, 'Sirena')
+    high_light = fields.Selection(SELECTION_YES_NO, 'Luz alta')
+    low_light = fields.Selection(SELECTION_YES_NO, 'Luz baja')
 
 class UnidadesMovilesLinea(models.Model):
     """docstring for UnidadesMovilesLinea"""
@@ -127,6 +154,16 @@ class UnidadesMovilesLinea(models.Model):
     name = fields.Char('Nombre')
     line_id = fields.Many2one(comodel_name='oehealth.samu.mobileunit', string='Imágenes', help='Help note')
     image = fields.Binary('Foto')
+
+
+class OehealthSamuMechanicalcompany(models.Model):
+    """docstring for OehealthSamuMechanicalcompany"""
+
+    _name = 'oehealth.samu.mechanicalcompany'
+    _description = 'OehealthSamuMechanicalcompany description'
+
+    code = fields.Char(u'Código')
+    name = fields.Char('Nombre')
 
 
 class OehealthSamuProfile(models.Model):
@@ -149,19 +186,39 @@ class OehealthSamuInstruction(models.Model):
     code = fields.Char('Código', help='Código de grado de instrucción')
 
 
+class OehealthSamuInformant(models.Model):
+    """docstring for OehealthSamuInformant"""
+
+    _name = 'oehealth.samu.informant'
+    _description = 'OehealthSamuInformant description'
+
+    code = fields.Char(u'Código')
+    full_name = fields.Char('Nombres')
+    sex = fields.Selection(SELECTION_SEX, 'Sexo')
+    doc_type = fields.Selection(SELECTION_DOC_TYPE, 'Tipo de documento')
+    identification_id = fields.Char(u'Número de documento')
+    phone_number = fields.Char(u'Número de teléfono / celular')
+    state_id = fields.Many2one('res.country.state', u'Región')
+    province_id = fields.Many2one('res.country.state', 'Provincia')
+    district_id = fields.Many2one('res.country.state', 'Distrito')
+    address = fields.Char(u'Dirección')
+    address_reference = fields.Text('Referencia')
+    gps = fields.Char('GPS')
+
+
 class HrEmployee(models.Model):
     """Sincronización de datos de establecimiento."""
 
     _inherit = 'hr.employee'
 
-    doc_type = fields.Selection(DOC_TYPE_SELECTION, 'Tipo de documento', default=DOC_TYPE_SELECTION_DNI)
+    doc_type = fields.Selection(SELECTION_DOC_TYPE, 'Tipo de documento', default=SELECTION_DOC_TYPE_DOI)
     instruction_id = fields.Many2one('oehealth.samu.instruction', u'Instrucción')
     profile_id = fields.Many2one(comodel_name='oehealth.samu.profile', string='Perfil')
 
     @api.onchange('identification_id', 'doc_type')
     def onchange_identification_id(self):
         for record in self:
-            if record.doc_type == DOC_TYPE_SELECTION_DNI:
+            if record.doc_type == SELECTION_DOC_TYPE_DOI:
                 if record.identification_id and len(record.identification_id) != 8:
                     raise ValidationError(u'El número de DNI debe tener 8 dígitos.')
 
@@ -190,13 +247,13 @@ class HrEmployee(models.Model):
 class ResPartner(models.Model):
     _inherit = 'res.partner'
 
-    doc_type = fields.Selection(DOC_TYPE_SELECTION, 'Tipo de documento', default=DOC_TYPE_SELECTION_DNI)
+    
     identification_id = fields.Char(u'Número de documento')
 
 
 class ResUsers(models.Model):
     _inherit = 'res.users'
-    doc_type = fields.Selection(DOC_TYPE_SELECTION, 'Tipo de documento', default=DOC_TYPE_SELECTION_DNI)
+    
     identification_id = fields.Char(u'Número de documento')
     state_id = fields.Many2one('res.country.state', u'Región')
     province_id = fields.Many2one('res.country.state', 'Provincia')
@@ -206,7 +263,7 @@ class ResUsers(models.Model):
     @api.onchange('identification_id', 'doc_type')
     def onchange_identification_id(self):
         for record in self:
-            if record.doc_type == DOC_TYPE_SELECTION_DNI:
+            if record.doc_type == SELECTION_DOC_TYPE_DOI:
                 if record.identification_id and len(record.identification_id) != 8:
                     raise ValidationError(u'El número de DNI debe tener 8 dígitos.')
 
@@ -240,13 +297,27 @@ class ResUsers(models.Model):
     #     res.partner_id.write(partner_vals)
 
 
-EMERGENCY_TYPE_INPERTENENT = 0
+EMERGENCY_TYPE_INPERTINENT = 0
 EMERGENCY_TYPE_PERTINENT = 1
 
 EMERGENCY_TYPE_SELECCTION = [
     (EMERGENCY_TYPE_PERTINENT, 'Pertinente'),
-    (EMERGENCY_TYPE_INPERTENENT, 'Impertinente'),
+    (EMERGENCY_TYPE_INPERTINENT, 'Impertinente'),
     ]
+
+IN_CALL = 'llamada'
+IN_REGULATION = 'regulacion'
+ON_ROAD = 'camino'
+IN_ATTENTION = 'atencion'
+ATTENDED = 'atendido'
+
+EMERGENCY_STATE = [
+    (IN_CALL, 'Llamada entrante'),
+    (IN_REGULATION, u'Regulación'),
+    (ON_ROAD, 'En camino'),
+    (IN_ATTENTION, 'En atención'),
+    (ATTENDED, 'Atendido')
+]
 
 
 class OehealthSamuLlamada(models.Model):
@@ -255,19 +326,78 @@ class OehealthSamuLlamada(models.Model):
     _name = 'oehealth.samu.llamada'
     _description = 'OehealthSamuLlamadas description'
 
-    code = fields.Char(u'Código')
-    name = fields.Char('Nombre')
+    doc_date = fields.Date('Fecha de emergencia', default=datetime.today())
+    state = fields.Selection(EMERGENCY_STATE, 'Estado', readonly=True, default=lambda *e: IN_CALL)
     emergency_type = fields.Selection(EMERGENCY_TYPE_SELECCTION, 'Tipo de emergencia')
     calldetail_id = fields.Many2one('oehealth.samu.calldetail', 'Detalle de llamada')
     motivoimpertinente_id = fields.Many2one('oehealth.samu.motivoimpertinente', 'Motivo impertinente')
     observation = fields.Text(u'Observación')
+    country_id = fields.Many2one(
+        comodel_name='res.country', string=u'País',
+        default=lambda self: self.env['ir.model.data'].xmlid_to_res_id('base.pe'))
     state_id = fields.Many2one('res.country.state', 'Departamento')
     province_id = fields.Many2one('res.country.state', 'Provincia')
     district_id = fields.Many2one('res.country.state', 'Distrito')
-    doc_type = fields.Selection(DOC_TYPE_SELECTION, 'Tipo de documento')
+    doc_type = fields.Selection(SELECTION_DOC_TYPE, 'Tipo de documento')
     identification_id = fields.Char(u'Número')
     patient_id = fields.Many2one('res.partner', 'Paciente')
     motivollamada_id = fields.Many2one('oehealth.samu.motivollamada', 'Motivo de llamada')
+    emergency_id = fields.Many2one('oeh.medical.samu.emergency', 'Detalle de emergencia')
+    # name = fields.Char(u'Código de llamada', size=64, readonly=True, required=True, default=lambda *a: '/')
+    name = fields.Char(related='emergency_id.name')
+    informant_full_name = fields.Char('Nombres')
+    informant_sex = fields.Selection(SELECTION_SEX, 'Sexo')
+    informant_doc_type = fields.Selection(SELECTION_DOC_TYPE, 'Tipo de documento')
+    informant_identification_id = fields.Char(u'Número de documento')
+    informant_phone_number = fields.Char(u'Número de teléfono / celular')
+    informant_country_id = fields.Many2one(
+        comodel_name='res.country', string=u'País',
+        default=lambda self: self.env['ir.model.data'].xmlid_to_res_id('base.pe'))
+    informant_state_id = fields.Many2one('res.country.state', u'Región')
+    informant_province_id = fields.Many2one('res.country.state', 'Provincia')
+    informant_district_id = fields.Many2one('res.country.state', 'Distrito')
+    informant_address = fields.Char(u'Dirección')
+    informant_address_reference = fields.Text('Referencia')
+    informant_gps = fields.Char('GPS')
+
+
+    @api.one
+    def set_to_regulation(self):
+        self.state = IN_REGULATION
+
+    @api.one
+    def set_to_on_road(self):
+        self.state = ON_ROAD
+
+    @api.one
+    def set_to_attending(self):
+        self.state = IN_ATTENTION
+
+    @api.one
+    def set_to_attended(self):
+        self.state = ATTENDED
+
+    # @api.model
+    # def create(self, vals):
+        # sequence = self.env['ir.sequence'].next_by_code('oeh.medical.samu.emergency')
+        # vals['name'] = sequence
+        # __import__('ipdb').set_trace()
+        # res = super(OehealthSamuLlamada, self).create(vals)
+
+    @api.onchange('informant_identification_id', 'informant_doc_type')
+    def onchange_informant_identification_id(self):
+        for record in self:
+            if record.informant_doc_type == SELECTION_DOC_TYPE_DOI:
+                if record.informant_identification_id and len(record.informant_identification_id) != 8:
+                    raise ValidationError(u'El número de DNI debe tener 8 dígitos.')
+
+                try:
+                    data = record.env['consultadatos.reniec'].consultardni(record.informant_identification_id)
+                except Exception as ex:
+                    raise ValidationError('%s' % ex.message)
+                record.informant_full_name = u'{} {} {}'.format(data.get('nombres', ''), data.get('ape_paterno', ''), data.get('ape_materno', ''))
+                # record.image = data.get('fotografia', False)
+                record.informant_address = data.get('domicilio', {}).get('direccion_descripcion', '')
 
 
 class OehealthSamuMotivoLlamada(models.Model):

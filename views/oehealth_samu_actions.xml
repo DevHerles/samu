@@ -22,17 +22,31 @@
         </record>
 
         <record id="oehealth_samu_mobileunit_action" model="ir.actions.act_window">
-            <field name="name">oehealth.samu.mobileunit</field>
+            <field name="name">Unidades móviles</field>
             <field name="res_model">oehealth.samu.mobileunit</field>
             <field name="view_mode">tree,form</field>
         </record>
 
         <record id="oehealth_samu_llamada_action" model="ir.actions.act_window">
-            <field name="name">oehealth.samu.llamada</field>
+            <field name="name">Llamadas</field>
             <field name="res_model">oehealth.samu.llamada</field>
             <field name="view_mode">tree,form</field>
         </record>
 
+        <record id="oehealth_samu_llamada_pertinent_action" model="ir.actions.act_window">
+            <field name="name">Llamadas pertienentes</field>
+            <field name="res_model">oehealth.samu.llamada</field>
+            <field name="domain">[('emergency_type','=','1')]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="oehealth_samu_llamada_inpertinent_action" model="ir.actions.act_window">
+            <field name="name">Llamadas impertinentes</field>
+            <field name="res_model">oehealth.samu.llamada</field>
+            <field name="domain">[('emergency_type','=','0'),('state','=','regulacion')]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
         <record id="oehealth_samu_mobileunit_brand_action" model="ir.actions.act_window">
             <field name="name">Marcas de vehículos</field>
             <field name="res_model">oehealth.samu.brand</field>
