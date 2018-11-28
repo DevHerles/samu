@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record id="oeh_medical_samu_emergency_view_tree" model="ir.ui.view">
-            <field name="name">Emergencias</field>
-            <field name="model">oeh.medical.samu.emergency</field>
-            <field name="arch" type="xml">
-                <tree>
-                    <field name="driver_id"/>
-                </tree>
-            </field>
-        </record>
+        <!--<record id="oeh_medical_samu_emergency_view_tree" model="ir.ui.view">-->
+            <!--<field name="name">Emergencias</field>-->
+            <!--<field name="model">oeh.medical.samu.emergency</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree>-->
+                    <!--<field name="driver_id"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
         <record id="oeh_medical_samu_emergency_view_form_inherit_medical_emergency" model="ir.ui.view">
             <field name="name">Emergencia</field>
             <field name="model">oeh.medical.samu.emergency</field>
             <field name="inherit_id" ref="oehealth_emergency.oeh_medical_emergency_admission_view"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='emergency_date']" position="after">
-                    <field name="driver_id"/>
-                    <field name="physician_id"/>
-                    <field name="nurse_id"/>
-                    <field name="unitytype_id"/>
+                    <!--<field name="driver_id"/>-->
+                    <!--<field name="physician_id"/>-->
+                    <!--<field name="nurse_id"/>-->
+                    <!--<field name="unitytype_id"/>-->
                     <field name="elapsed_time"/>
                 </xpath>
                 <xpath expr="//field[@name='triage_id']" position="after">

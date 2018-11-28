@@ -76,7 +76,7 @@
 
         <menuitem
             id="oehealth_samu_llamada_inpertinent_menu_root_action"
-            name="Llamadas impertinentes"
+            name="Llamadas no pertinentes"
             parent="oehealth_samu_llamada_menu_root"
             action="oehealth_samu_llamada_inpertinent_action"
             sequence="20"/>

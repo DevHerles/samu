@@ -18,14 +18,14 @@
         'oehealth_emergency',
     ],
     'data': [
+        'data/oehealth_samu_data.xml',
         'views/oehealth_samu_views.xml',
-        'views/oehealth_samu_data.xml',
         'views/oehealth_emergency_wizard.xml',
         'views/oehealth_emergency.xml',
         'views/oehealth_samu_actions.xml',
         'views/oehealth_samu_menus.xml',
-        # 'security/ir.model.access.csv',
-        ],
+        'security/ir.model.access.csv',
+    ],
     'active': False,
     'installable': True
 }

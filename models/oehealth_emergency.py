@@ -20,6 +20,7 @@ class OehMedicalPatient(models.Model):
             },
         }
 
+
 class WizardSamuEmergencyLine2(models.TransientModel):
     _name = 'wizard.samu.emergency.line2'
     _inherit = 'wizard.appointment.line2'
@@ -28,23 +29,6 @@ class WizardSamuEmergencyLine2(models.TransientModel):
     wizard_emergency_id = fields.Many2one('wizard.samu.emergency')
 
 
-class OehMedicalPatient(models.Model):
-    _inherit = 'oeh.medical.patient'
-
-    @api.multi
-    def request_emergency(self):
-        self.ensure_one()
-        return {
-            'name': u'Solicitar emergencia',
-            'type': 'ir.actions.act_window',
-            'view_mode': 'form',
-            'target': 'self',
-            'res_model': 'oeh.medical.emergency',
-            'context': {
-                'default_patient_id': self.id,
-            },
-        }
-
 class OehealthSamuEmergency(models.Model):
     '''
     Registro de pacientes de emergencias
@@ -52,15 +36,12 @@ class OehealthSamuEmergency(models.Model):
     _name = 'oeh.medical.samu.emergency'
     _inherit = 'oeh.medical.emergency'
 
-    physician = fields.Char(u'Médico')
-    physician_id = fields.Many2one('oeh.medical.physician', 'Médico', required=True)
-    nurse_id = fields.Many2one('oeh.medical.physician', 'Enfermera', required=True)
-    driver_id = fields.Many2one('hr.employee', 'Conductor', required=True)
-    unitytype_id = fields.Many2one('oehealth.samu.unitytype', 'Tipo de unidad', required=True)
     elapsed_time = fields.Integer('Tiempo transcurrido (minutos)')
     observations = fields.Text('Observaciones')
-    # mobileunit_ids = fields.One2many('oehealth.samu.mobileunit', 'mobileunit_id', 'Unidades')
     line_ids = fields.One2many('oeh.medical.samu.emergency.line', 'line_id', 'Unidades')
+    samu_emergency_id = fields.Many2one('oeh.medical.samu.emergency', 'Emergencia')
+    curse = fields.Selection(selection=[('0', 'Estacionario'), ('1', 'Otro')], string='Curso')
+    priority = fields.Selection(selection=[('1', 'I'), ('2', 'II'), ('3', 'III')], string='Prioridad')
 
 
 class OehealthSamuEmergencyLine(models.Model):
@@ -130,21 +111,3 @@ class WizardEmergencyLine2(models.TransientModel):
     _rec_name = 'wizard_emergency_id'
 
     wizard_emergency_id = fields.Many2one('wizard.samu.emergency')
-
-
-class OehMedicalPatient(models.Model):
-    _inherit = 'oeh.medical.patient'
-
-    @api.multi
-    def request_emergency(self):
-        self.ensure_one()
-        return {
-            'name': u'Solicitar emergencia',
-            'type': 'ir.actions.act_window',
-            'view_mode': 'form',
-            'target': 'self',
-            'res_model': 'oeh.medical.emergency',
-            'context': {
-                'default_patient_id': self.id,
-            },
-        }
